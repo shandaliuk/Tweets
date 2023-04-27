@@ -1,18 +1,30 @@
-import { useState } from 'react';
 import { useGetUsersQuery } from 'services/usersApi';
-import { HiddenTitle } from './Tweets.styled';
+import { TweetCard } from 'TweetCard/TweetCard';
+import {
+  TweetsSection,
+  HiddenTitle,
+  TweetsList,
+  TweetsListItem,
+} from './Tweets.styled';
 
 export const Tweets = () => {
-  const [page, setPage] = useState(1);
-
-  const { data, isLoading, isError } = useGetUsersQuery();
+  const { data: users, isLoading, isError } = useGetUsersQuery();
 
   return (
     !isLoading &&
     !isError && (
-      <>
-        <HiddenTitle>User tweets</HiddenTitle>
-      </>
+      <main>
+        <TweetsSection>
+          <HiddenTitle>User tweets</HiddenTitle>
+          <TweetsList>
+            {users.map(user => (
+              <TweetsListItem key={user.id}>
+                <TweetCard user={user} />
+              </TweetsListItem>
+            ))}
+          </TweetsList>
+        </TweetsSection>
+      </main>
     )
   );
 };
