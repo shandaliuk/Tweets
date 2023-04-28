@@ -16,15 +16,3 @@ export const HiddenTitle = styled.h2`
   border: 0;
   clip: rect(0 0 0 0);
 `;
-
-export const TweetsList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 30px;
-  row-gap: 30px;
-`;
-
-export const TweetsListItem = styled.li`
-  width: 380px;
-  height: 460px;
-`;
