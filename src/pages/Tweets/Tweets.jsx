@@ -64,6 +64,9 @@ export const Tweets = () => {
     if (event.value === 'follow') {
       setPage(1);
       setLimit(12);
+      if (limit === 3) {
+        setUsersToShow([]);
+      }
     } else if (event.value === 'show all') {
       setLimit(3);
       if (limit === 12) {
