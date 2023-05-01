@@ -1,4 +1,4 @@
-import { TweetCard } from 'TweetCard/TweetCard';
+import { TweetCard } from 'components/TweetCard/TweetCard';
 import {
   TweetsList,
   TweetsListItem,
