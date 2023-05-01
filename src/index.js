@@ -13,16 +13,16 @@ import { GlobalStyle } from 'utils/GlobalStyles';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <App />
-        </ThemeProvider>
-      </BrowserRouter>
-    </PersistGate>
-  </Provider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <App />
+          </ThemeProvider>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  </React.StrictMode>
 );
