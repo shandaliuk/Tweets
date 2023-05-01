@@ -4,10 +4,7 @@ import {
   TweetsListItem,
   EmptyTitle,
 } from './TweetsUsersList.styled';
-
 export const TweetsUsersList = ({ users, category, setPage }) => {
-  if (category === 'follow') {
-  }
   const checkPage = () => {
     if (users.length === 1) {
       setPage(state => (state += 1));

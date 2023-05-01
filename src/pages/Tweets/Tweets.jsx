@@ -35,12 +35,8 @@ export const Tweets = () => {
 
   const defaultOption = category;
 
-  const handleChange = event => {
-    setCategory(event.value);
-  };
-
-  const filterUsers = () => {
-    return usersToShow.filter(user => {
+  const filterUsers = usersToFilter => {
+    return usersToFilter.filter(user => {
       const currentUser = savedUsers.find(savedUser => {
         return savedUser.id === user.id;
       });
@@ -51,19 +47,30 @@ export const Tweets = () => {
     });
   };
 
-  const categorizeUsers = () => {
+  const categorizeUsers = usersToCategorize => {
     switch (category) {
       case 'show all':
-        setLimit(3);
-        return usersToShow;
+        return usersToCategorize;
       case 'follow':
-        setLimit(12);
-        return filterUsers();
+        return filterUsers(usersToCategorize);
       case 'followings':
         return savedUsers;
       default:
         return [];
     }
+  };
+
+  const handleChange = event => {
+    if (event.value === 'follow') {
+      setPage(1);
+      setLimit(12);
+    } else if (event.value === 'show all') {
+      setLimit(3);
+      if (limit === 12) {
+        setUsersToShow([]);
+      }
+    }
+    setCategory(event.value);
   };
 
   const onLoadMoreClick = () => {
@@ -84,16 +91,20 @@ export const Tweets = () => {
             className="dropdown"
           />
           <TweetsUsersList
-            users={categorizeUsers()}
+            users={categorizeUsers(usersToShow)}
             category={category}
             setPage={setPage}
           />
-          {users.length > 0 ? (
-            <LoadMoreButton type="button" onClick={onLoadMoreClick}>
-              Load more
-            </LoadMoreButton>
-          ) : (
-            <MessageHeading>You've reached the end</MessageHeading>
+          {category === 'show all' && (
+            <>
+              {users.length > 0 && usersToShow.length < 12 ? (
+                <LoadMoreButton type="button" onClick={onLoadMoreClick}>
+                  Load more
+                </LoadMoreButton>
+              ) : (
+                <MessageHeading>You've reached the end</MessageHeading>
+              )}
+            </>
           )}
         </TweetsSection>
       </main>
