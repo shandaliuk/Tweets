@@ -1,14 +1,29 @@
 import { TweetCard } from 'TweetCard/TweetCard';
-import { TweetsList, TweetsListItem } from './TweetsUsersList.styled';
+import {
+  TweetsList,
+  TweetsListItem,
+  EmptyTitle,
+} from './TweetsUsersList.styled';
 
-export const TweetsUsersList = ({ users, category }) => {
+export const TweetsUsersList = ({ users, category, setPage }) => {
+  if (category === 'follow') {
+  }
+  const checkPage = () => {
+    if (users.length === 1) {
+      setPage(state => (state += 1));
+    }
+  };
   return (
     <TweetsList>
-      {users.map(user => (
-        <TweetsListItem key={user.id}>
-          <TweetCard user={user} category={category} />
-        </TweetsListItem>
-      ))}
+      {users.length <= 0 ? (
+        <EmptyTitle>Add users to your {category} list</EmptyTitle>
+      ) : (
+        users.map(user => (
+          <TweetsListItem key={user.id}>
+            <TweetCard user={user} checkPage={checkPage} category={category} />
+          </TweetsListItem>
+        ))
+      )}
     </TweetsList>
   );
 };

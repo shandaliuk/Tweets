@@ -13,7 +13,7 @@ const usersSlice = createSlice({
     },
     deleteUser(state, action) {
       const index = state.users.findIndex(user => user.id === action.payload);
-      if (!index) {
+      if (index !== 0 && !index) {
         throw new Error('User not found!');
       }
       state.users.splice(index, 1);

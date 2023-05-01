@@ -105,4 +105,13 @@ export const FollowButton = styled.button`
   &:focus {
     background-color: ${props => props.theme.colors.accent};
   }
+
+  &.following {
+    background-color: ${props => props.theme.colors.accent};
+
+    &:hover,
+    &:focus {
+      background-color: ${props => props.theme.colors.primary};
+    }
+  }
 `;

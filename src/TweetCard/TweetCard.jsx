@@ -14,13 +14,18 @@ import {
   FollowButton,
 } from './TweetCard.styled';
 
-export const TweetCard = ({ user, category }) => {
+export const TweetCard = ({ user, checkPage }) => {
   const dispatch = useDispatch();
 
   const savedUsers = useSelector(selectUsers);
 
-  const handleClick = () => {
-    dispatch(addUser(user));
+  const handleClick = e => {
+    if (e.currentTarget.name === 'follow') {
+      dispatch(addUser(user));
+      checkPage();
+      return;
+    }
+    dispatch(deleteUser(user.id));
   };
 
   return (
@@ -44,24 +49,18 @@ export const TweetCard = ({ user, category }) => {
             <p>{user.followers.toLocaleString()} followers</p>
           </li>
         </TweetInfo>
-        {category === 'show all' &&
-        savedUsers.find(savedUser => savedUser.id === user.id) ? (
-          <FollowButton type="button" name="follow" onClick={handleClick}>
-            Follow
+        {savedUsers.find(savedUser => savedUser.id === user.id) ? (
+          <FollowButton
+            type="button"
+            name="unfollow"
+            onClick={handleClick}
+            className="following"
+          >
+            Following
           </FollowButton>
         ) : (
-          <FollowButton type="button" name="unfollow" onClick={handleClick}>
-            Following
-          </FollowButton>
-        )}
-        {category === 'follow' && (
           <FollowButton type="button" name="follow" onClick={handleClick}>
             Follow
-          </FollowButton>
-        )}
-        {category === 'following' && (
-          <FollowButton type="button" name="unfollow" onClick={handleClick}>
-            Following
           </FollowButton>
         )}
       </CardBottom>
